@@ -2,6 +2,7 @@ How To Build and Test Hybrid Pencil Code
 ================================
 [![Build Status](https://travis-ci.org/PencilCode/pencilcode.png?branch=master)](https://travis-ci.org/PencilCode/pencilcode)
 First install the prerequisites: git, nodejs, and grunt. Next, be sure you're in your home directory. Then:
+![main](http://attach.alruabye.net/pencilcodehybrid/pencilcodehybrid.png)
 
 <pre>
 git clone https://github.com/hussien89aa/pencilcode.git
