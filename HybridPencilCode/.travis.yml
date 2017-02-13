@@ -1,0 +1,30 @@
+dist: trusty
+sudo: required
+addons:
+  apt:
+    sources:
+      - google-chrome
+      - ubuntu-toolchain-r-test
+    packages:
+      - google-chrome-stable
+      - g++-4.8
+env:
+  - CXX=g++-4.8
+
+language: node_js
+node_js:
+  - '6'
+  - '7'
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3
+  - npm install grunt-cli -g
+
+notifications:
+  webhooks:
+    urls:
+      - http://fish.pencilcode.net/pull/staging
+    on_success: always
+    on_failure: never
+    on_start: false

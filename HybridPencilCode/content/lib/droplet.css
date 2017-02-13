@@ -46,6 +46,9 @@
   user-select: none;
   overflow: hidden;
   outline: none;
+    /* Hussein alrubaye added opacity and   z-index  */
+opacity:0.1;
+  z-index:0;
 }
 .droplet-ace {
   position: absolute;

@@ -688,6 +688,7 @@ function centerMiddle() {
 
 $(window).on('resize.middlebutton', centerMiddle);
 
+
 function showMiddleButton(which) {
   if (which == 'run') {
     var html,
@@ -964,6 +965,7 @@ function showDialog(opts) {
   }
   dialog.on('keyup mousedown change', validate);
   dialog.find('button.ok').on('click', function() {
+
     validate();
     if (!dialog.find('button.ok').is(':disabled') &&
         opts.done) {
@@ -1210,7 +1212,9 @@ function setPaneRunHtml(
 }
 
 function evalInRunningPane(pane, code, raw) {
+
   var paneState = state.pane[pane];
+
   if (!paneState.running) { return [null, 'error: not running (wrong state)']; }
   var preview = $('#' + pane + ' .preview');
   if (!preview.length) { return [null, 'error: not running (no preview)']; }
@@ -1533,7 +1537,6 @@ function getDefaultThumbnail(type) {
     'text/css'          : 'file-css.png',
     'text/coffeescript' : 'file-coffee.png',
     'text/javascript'   : 'file-js.png',
-    'text/x-python'     : 'file-image.png',
     'text/xml'          : 'file-xml.png',
     'text/json'         : 'file-json.png',
     'text/x-pencilcode' : 'file-pencil.png'
@@ -1594,7 +1597,6 @@ function modeForMimeType(mimeType) {
     'text/html': 'html',
     'text/css': 'css',
     'text/javascript': 'javascript',
-    'text/x-python': 'python',
     'text/plain': 'text',
     'text/csv': 'text',
     'image/svg+xml': 'xml',
@@ -1615,7 +1617,6 @@ function dropletModeForMimeType(mimeType) {
     'text/x-pencilcode': 'coffee',
     'text/coffeescript': 'coffee',
     'text/javascript': 'javascript',
-    'text/x-python': 'python',
     'text/html': 'html',
   }[mimeType];
   if (!result) {
@@ -1635,11 +1636,7 @@ function paletteForPane(paneState, selfname) {
         mimeType == 'application/x-javascript') {
       basePalette = palette.JAVASCRIPT_PALETTE;
     }
-    if (/x-python/.test(mimeType)) {
-        basePalette = palette.PYTHON_PALETTE;
-    }
-
-    if (mimeType.replace(/;.*$/, '') == 'text/html') {
+    if (mimeType == 'text/html') {
       basePalette = palette.HTML_PALETTE;
     }
   }
@@ -1650,22 +1647,19 @@ function paletteForPane(paneState, selfname) {
 }
 
 function dropletOptionsForMimeType(mimeType) {
-  if (/x-python/.test(mimeType)) {
-    return {
-      functions: palette.PYTHON_FUNCTIONS//,
-//      categories: palette.PYTHON_CATEGORIES
-    };
-  }
   if (mimeType.match(/^text\/html\b/)) {
     return {
       tags: palette.KNOWN_HTML_TAGS
     };
+  } else {
+    return {
+      functions: palette.KNOWN_FUNCTIONS,
+      categories: palette.CATEGORIES,
+      zeroParamFunctions: true
+
+
+    };
   }
-  return {
-    functions: palette.KNOWN_FUNCTIONS,
-    categories: palette.CATEGORIES,
-    zeroParamFunctions: true
-  };
 }
 
 function uniqueId(name) {
@@ -1835,6 +1829,8 @@ $('.panetitle').on('click', '.toggleblocks', function(e) {
   setPaneEditorBlockMode(pane, newmode);
 });
 
+
+
 $('.panetitle').on('click', '.langmenu', function(e) {
   var pane = $(this).closest('.panetitle').prop('id').replace('title', '');
   e.preventDefault();
@@ -1917,18 +1913,41 @@ $('.pane').on('mousedown', '.blockmenu', function(e) {
   }
 });
 
+//show code based
 $('.pane').on('click', '.texttoggle', function(e) {
   var pane = $(this).closest('.pane').prop('id');
   e.preventDefault();
   setPaneEditorBlockMode(pane, false, $(this).attr('droplet-editor'));
 });
 
+//show block based
 $('.pane').on('click', '.blocktoggle', function(e) {
   var pane = $(this).closest('.pane').prop('id');
   e.preventDefault();
   setPaneEditorBlockMode(pane, true,$(this).attr('droplet-editor'));
+console.log('block');
 });
 
+//added by Hussein alrubaye
+$('.pane').on('change keyup paste', 'textarea', function(e){
+  //console.log('keydown')
+  var pane = $(this).closest('.pane').prop('id');
+  e.preventDefault();
+
+ //  setPaneEditorBlockMode(pane, false,$(this).attr('droplet-editor'));
+ //  setPaneEditorBlockMode(pane, true, $(this).attr('droplet-editor'));
+  setPaneEditorBlockModeUpdate(pane, true,$(this).attr('droplet-editor'));
+  //$(this).attr('droplet-ace').style.left = '250px';
+});
+
+/*
+var myVar = setInterval(myTimer, 5000);
+function myTimer() {
+ console.log('timer run')
+
+  console.log('timer done')
+}
+*/
 function showPaneEditorLanguagesDialog(pane) {
   if (panepos(pane) != 'left') { return; }
   var paneState = state.pane[pane];
@@ -2320,7 +2339,7 @@ function setPaneEditorData(pane, doc, filename, useblocks) {
   var id = uniqueId('editor');
   var layout = [
     '<div class="hpanelbox">',
-    '<div class="hpanel">',
+    '<div class="hpanel"> ',
     '<div id="' + id + '" class="editor"></div>',
     '</div>',
     '<div class="hpanel cssmark" style="display:none" share="25">',
@@ -2741,7 +2760,7 @@ function setupAceEditor(pane, elt, editor, mode, text) {
 }
 
 function mimeTypeSupportsBlocks(mimeType) {
-  return /x-pencilcode|coffeescript|javascript|x-python|html/.test(mimeType);
+  return /x-pencilcode|coffeescript|javascript|html/.test(mimeType);
 }
 
 function setPaneEditorLanguageType(pane, type) {
@@ -2801,6 +2820,38 @@ function setPaneEditorBlockMode(pane, useblocks, editor) {
   var result = setMainEditorBlockMode(paneState.dropletEditor, useblocks);
   setSubEditorBlockMode(paneState.htmlEditor, useblocks);
   setSubEditorBlockMode(paneState.cssEditor, useblocks);
+  return result;
+}
+
+function setPaneEditorBlockModeUpdate(pane, useblocks, editor) {
+  function setMainEditorBlockMode(editor, useblocks) {
+    editor.currentlyUsingBlocks =false;
+    var visibleMimeType = editorMimeType(paneState);
+    if (useblocks && !mimeTypeSupportsBlocks(visibleMimeType)) return false;
+     var togglingSucceeded = editor.toggleBlocks();
+    if (!togglingSucceeded) return false;
+    fireEvent('toggleblocks', [pane, editor.currentlyUsingBlocks]);
+    //console.log('setPaneEditorBlockModeUpdate');
+    return true;
+  }
+  function setSubEditorBlockMode(editor, useblocks) {
+    if (!editor) return false;
+   // if (editor.currentlyUsingBlocks == useblocks) return false;
+    return editor.toggleBlocks();
+  }
+  var paneState = state.pane[pane];
+  if (!paneState.dropletEditor) return false;
+  useblocks = !!useblocks;
+  if (editor) {
+    if (editor == "dropletEditor") {
+      return setMainEditorBlockMode(paneState.dropletEditor, useblocks);
+    }
+    return setSubEditorBlockMode(paneState[editor], useblocks);
+  }
+  var result = setMainEditorBlockMode(paneState.dropletEditor, useblocks);
+  setSubEditorBlockMode(paneState.htmlEditor, useblocks);
+  setSubEditorBlockMode(paneState.cssEditor, useblocks);
+
   return result;
 }
 
@@ -3267,6 +3318,8 @@ function setupHpanelBox(box) {
     });
   });
 }
+
+
 
 window.FontLoader = FontLoader;
 window.fontloader = fontloader;

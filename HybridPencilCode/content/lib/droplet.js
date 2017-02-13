@@ -65305,8 +65305,9 @@ Editor.prototype.performFreezeAnimation = function(fadeTime, translateTime, cb) 
           noText: true
         });
         _this.currentlyAnimating_suppressRedraw = true;
-        _this.aceElement.style.top = "-9999px";
-        _this.aceElement.style.left = "-9999px";
+        //update by hussein alrubaye remove to keep layout show
+        //_this.aceElement.style.top = "-9999px";
+       // _this.aceElement.style.left = "-9999px";
         paletteAppearingWithFreeze = _this.paletteEnabled && !_this.showPaletteInTextMode;
         if (paletteAppearingWithFreeze) {
           _this.paletteWrapper.style.top = '0px';
@@ -65475,7 +65476,8 @@ Editor.prototype.toggleBlocks = function(cb) {
   if (this.currentlyUsingBlocks) {
     return this.performMeltAnimation(500, 1000, cb);
   } else {
-    return this.performFreezeAnimation(500, 500, cb);
+    //update by hussein alrubaye from 500 to 0 to remove animation
+    return this.performFreezeAnimation(0, 0, cb);
   }
 };
 
@@ -65821,7 +65823,10 @@ Editor.prototype.setEditorState = function(useBlocks) {
       this.paletteWrapper.style.top = this.paletteWrapper.style.left = '-9999px';
       this.dropletElement.style.left = '0px';
     }
-    this.aceElement.style.top = this.aceElement.style.left = '-9999px';
+     //Hussein alrubaye update top,left from -9999px to top=0px and left=175px,set fonot size
+    this.aceElement.style.top ='0px';
+      this.aceElement.style.left = '250px';
+      this.aceElement.style.fontSize = "25px";
     this.currentlyUsingBlocks = true;
     this.lineNumberWrapper.style.display = 'block';
     this.mainCanvas.opacity = this.paletteWrapper.opacity = this.highlightCanvas.opacity = 1;
