@@ -5,7 +5,7 @@ First install the prerequisites: git, nodejs, and grunt. Next, be sure you're in
 ![main](http://attach.alruabye.net/pencilcodehybrid/pencilcodehybrid.png)
 
 <pre>
-git clone https://github.com/hussien89aa/pencilcode.git
+git clone https://github.com/hussien89aa/HybridPencilCode.git
 cd pencilcode/HybridPencilCode
 npm install
 grunt
@@ -15,7 +15,7 @@ grunt devserver
 On Windows Subsystem for Linux (WSL) *only*:
 
 <pre>
-git clone https://github.com/hussien89aa/pencilcode.git
+git clone https://github.com/hussien89aa/HybridPencilCode.git
 cd pencilcode/HybridPencilCode
 npm install --no-shrinkwrap
 grunt
