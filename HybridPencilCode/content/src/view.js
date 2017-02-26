@@ -1,3 +1,5 @@
+
+
 ///////////////////////////////////////////////////////////////////////////
 // VIEW SUPPORT
 ///////////////////////////////////////////////////////////////////////////
@@ -2836,6 +2838,7 @@ function setPaneEditorBlockModeUpdate(pane, useblocks, editor) {
   }
   function setSubEditorBlockMode(editor, useblocks) {
     if (!editor) return false;
+    //removed by Hussein alrubaye
    // if (editor.currentlyUsingBlocks == useblocks) return false;
     return editor.toggleBlocks();
   }
