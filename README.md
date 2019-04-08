@@ -203,37 +203,9 @@ The PencilCode editor is broken into three main pieces:
 The view and the main logic are a bit large and probably should
 be refactored into further smaller pieces.
 
-Roadmap
+Cite this paper if you want to use this tool.
 =======
 
-Improvements we'd like to make in PencilCode are in several basic
-directions:
+Alrubaye, H. (2017). Comparison of visual programming and hybrid programming environments in transferring programming skills.
 
-1. Better Debugging.  That ultimately means giving kids the ability to stop
-   and step programs, and visualize their program state (their variables).
-2. A Block Language.  That means something like blockly, or maybe
-   something new.  The goal is to make it easy to use on the tablet
-   while also making it easy for beginners to quickly build
-   programs by multiple-choice.
-3. Richer Libraries.  The turtle is fun, but we want to point the
-   way for students to do many other things: 3d, math, games,
-   presentations, music, and so on.
-4. A Learning Framework.  Students should be given more guidance
-   on which concepts to learn next.  This could be in the form of
-   automatic tips, better editor warning messages, exercises, or
-   just better (e.g., more visual) navigation throught he site.
-5. Community Tools.  The site has grown to more than 1000 users
-   pretty quickly.  There should be ways to leave comments on
-   on other peoples' sites.  The UI for creating URLs to share
-   your work should be easier.  And it should be easier to do basic
-   things like change your website name, or find your site once
-   you have forgotten its name.
-6. Better UI.  Lots of little examples.  Here is one: instead of
-   navigating projects by name only, it should be possible to
-   navigate them visually.  After you run a project, we should
-   capture a bitmap of the drawing and serve thumbnails.
-
-We are always looking for more ideas too.
-
-hussien89aa@outlook.com
 
