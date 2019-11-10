@@ -1,3 +1,22 @@
+HybridPencilCode
+================================
+HybridPencilCode is a tool used to tech kids programming with hybrid-based coding enviroment.
+
+
+### When you use this tool, please cite this paper.
+
+<pre>
+@inproceedings{alrubaye2019comparison,
+  title={Comparison of block-based and hybrid-based environments in transferring programming skills to text-based environments},
+  author={Alrubaye, Hussein and Ludi, Stephanie and Mkaouer, Mohamed Wiem},
+  booktitle={Proceedings of the 29th Annual International Conference on Computer Science and Software Engineering},
+  pages={100--109},
+  year={2019},
+  organization={IBM Corp.}
+}
+</pre>
+
+
 How To Build and Test Hybrid Pencil Code
 ================================
 [![Build Status](https://travis-ci.org/PencilCode/pencilcode.png?branch=master)](https://travis-ci.org/PencilCode/pencilcode)
@@ -203,9 +222,4 @@ The PencilCode editor is broken into three main pieces:
 The view and the main logic are a bit large and probably should
 be refactored into further smaller pieces.
 
-Cite this paper if you want to use this tool.
-=======
-
-Alrubaye, H. (2017). Comparison of visual programming and hybrid programming environments in transferring programming skills.
-
-
+ 
